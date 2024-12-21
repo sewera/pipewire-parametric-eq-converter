@@ -1,30 +1,6 @@
 #!/usr/bin/python3
-import os
-import sys
-import tkinter.filedialog
-
-# txt file picker
-txt_file = tkinter.filedialog.askopenfilename(title="Choose txt file", filetypes=[("text files", ".txt")])
-# askopenfilename returns tuple. If exits, it returns empty tuple
-if (txt_file is None or txt_file == () or txt_file == ''):
-    sys.exit()
-
-output_file = open("sink-eq6.conf", "w+")
-
-# Commentary
-output_file.write("\
-# sink-eq6.conf \n\
-# \n\
-# 10 band (or any band, originally, it's 6 band) sink equalizer \n\
-# \n\
-# Copy this file into a conf.d/ directory such as \n\
-#   ~/.config/pipewire/pipewire.conf.d/ \n\
-# \n\
-# Edit it for your needs and then restart pipewire service \n\
-#   systemctl --user restart pipewire.service \n\
-# \n\n")
-
-output_file = open("sink-eq6.conf", "a+")
+txt_file = "input.eq.txt" # TODO: Add a parameter to select the input file
+output_file = open("output.filter.conf", "a+")
 
 # Beginning of conf
 output_file.write('\
@@ -107,7 +83,3 @@ output_file.write('\n\
 
 output_file.close()
 input_file.close()
-
-os.system("mkdir -p ~/.config/pipewire/pipewire.conf.d")
-os.system("cp -u sink-eq6.conf ~/.config/pipewire/pipewire.conf.d/")
-os.system("systemctl --user restart pipewire.service")
